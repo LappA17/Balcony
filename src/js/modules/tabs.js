@@ -1,4 +1,4 @@
-const tabs = (headerSelector, tabSelector, contentSelector, activeClass, display = "block") => {
+const tabs = (headerSelector, tabSelector, contentSelector, activeClass, display = 'block') => {
     const header = document.querySelector(headerSelector),
           tab = document.querySelectorAll(tabSelector),
           content = document.querySelectorAll(contentSelector);
@@ -14,9 +14,7 @@ const tabs = (headerSelector, tabSelector, contentSelector, activeClass, display
     }
 
     function showTabContent(i = 0) {
-        content[i].style.display = display;/* Передаем этот новый аргумент. Теперь если вдруг при вызове
-        функции ТАБС, мы ничего туда не передаем, то у нас подставится блочный элемент, а если что-то передаем
-        то подставиться в данной функции content[i].style.display = display*/
+        content[i].style.display = display;
         tab[i].classList.add(activeClass);
     }
 
