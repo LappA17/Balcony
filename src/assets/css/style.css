@@ -18,6 +18,20 @@ body {
   color: red;
 }
 
+.faded {
+  animation-name: faded;
+  animation-duration: 1.5s; /*длительность анимации*/
+}
+
+@keyframes faded {
+  from { /* начальная точка*/
+    opacity: 0.1;/* это процент прозрачности*/
+  }
+  to { /*анимация будет заканчиваться когда прозрачность будет равна 1*/
+    opacity: 1;
+  }
+} /* анимация где от прозрачного переходит к явному */
+
 a:hover {
   text-decoration: none;
 }

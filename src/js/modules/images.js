@@ -1,57 +1,32 @@
-/* Задача что бы при клике на любую из восьми картинок - она открывается во весь экран с полупрозрачной
-    темной подложкой. 
-    Так как у нас много одинаковых элементов нужно будет использовать делигирование событий, т.е повесить обработчик
-    событий на всю область в которой эти элементы.
-    Дальше создать мод окно, которое будет отображать так как написано в тз
-    Создадим элемент img которое поместим в мод окно
-    И что бы закрывалось при клике на подложку */
 const images = () => {
-    const imgPopup = document.createElement("div"),/*создание модельного окна первым делом */
-          workSection = document.querySelector(".works"),/* Общий блок для всех изображений */
-          bigImage = document.createElement("img");
+    const imgPopup = document.createElement('div'),
+          workSection = document.querySelector('.works'),
+          bigImage = document.createElement('img');
 
-    imgPopup.classList.add("popup"); /*Добавим готовый класс который уже есть в css */
-    workSection.appendChild(imgPopup)/* Пока что это мод окно существует только внутри js, и нам нужно что бы оно появилось на странице */
+    imgPopup.classList.add('popup');
+    workSection.appendChild(imgPopup);
 
-    /* Наше изображение должно стоять строго по центру, можно это сделать с помощью флексов. Так же можно было через css текст но ваня выбрал
-    через инлайн стили  */
-    imgPopup.style.justifyContent = "center";//по горизонтале
-    imgPopup.style.alignItems = "center";// по вертикале
-    imgPopup.style.display = "none";//так как у нас изначально изображение скрыто ставим display none а не flex, потом после клика флекс
+    imgPopup.style.justifyContent = 'center';
+    imgPopup.style.alignItems = 'center';
+    imgPopup.style.display = 'none';
 
-    imgPopup.appendChild(bigImage);/* так же в это мод окно нужно поместить изображение которое я только что создал */
+    imgPopup.appendChild(bigImage);
 
-    /* Теперь поработает с обработчиком событий которое будет вешаться на всю большую секцию */
-    workSection.addEventListener("click", (e) => { /* КОГДА МЫ ИСПОЛЬЗУЕМ ДЕЛЛИГИРОВАНИЕ СОБЫТИЙ НАМ ПОНАДОБИТСЯ ОБЪЕКТ СОБЫТИЯ */
-        e.preventDefault(); /* Потому что мы изначально кликаем по ссылке и нас перебрассывает на изображение */
-        let target = e.target; //сразу вынесим в новую переменую е.таргет
+    workSection.addEventListener('click', (e) => {
+        e.preventDefault();
 
-        /*дальше идет классика делигирование, мы используем условия */
-        if (target && target.classList.contains("preview")) { /*перым делом я проверю или этот элемент вообще поддерживает клик
-А второе мы уже проверяем наличия класса у изображение, заходим в верстку и видим класс preview  */
+        let target = e.target;
 
-/* И теперь если все совпало и пользователь действительно кликнул на картинку а не мимо, то нам нужно показать мод окно */
-            imgPopup.style.display = "flex";
-
-            /* Дальше нам нужно понять на какое именно изображение кликнул пользователь. В верстке сначало идет див, потом идет ссылка
-которая перекидывает на фото c тегом a и уже потом в ссылке тег img с классом preview*/
-            const path = target.parentNode.getAttribute("href");/* target - элемент на котором произошло событие. 
-Дальше обратиться к его родителю, так как я написал у нас есть img а ссылка находится сверху с помощью parentNode 
-getAttribute - получаем нужный нам атрибут */
-
-            /*теперь мы берем изображение внутри модельного окна и устанавливаем атрибут в позицию path - это как раз то что мы 
-вытащили из ссылок */
-            bigImage.setAttribute("src", path);
+        if (target && target.classList.contains('preview')) {
+            imgPopup.style.display = 'flex';
+            const path = target.parentNode.getAttribute('href');
+            bigImage.setAttribute('src', path);
         }
 
-        /*при клике на подложку мод окно должно закрываться */
-        if (target && target.matches("div.popup")) { /* Здесь необходимо проверить что пользователь кликнул именно не в изображение а в сам popup который 
-у нас образовался.
-    Для этого используем такой api как matches - совпадение 
-    target.matches("div.popup") -  ПО РУССКИ ТО ЧТО ПОЛЬЗОВАТЕЛЬ КЛИКНУЛ НА ПОДЛОЖКУ*/
-        
-    imgPopup.style.display = "none";
+        if (target && target.matches('div.popup')) {
+            imgPopup.style.display = 'none';
         }
     });
 };
+
 export default images;
